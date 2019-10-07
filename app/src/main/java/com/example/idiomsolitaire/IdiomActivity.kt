@@ -14,17 +14,20 @@ class IdiomActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityIdiomBinding
     private lateinit var viewModel: IdiomViewModel
-
-    private val adapter = IdiomResultAdapter(listOf())
+    private lateinit var adapter: IdiomResultAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         initViewModel()
-        listenerField()
         initBinding()
-        initSearchView()
         initRv()
+        listenerField()
+        initSearchView()
+    }
+
+    private fun initViewModel() {
+        viewModel = ViewModelProviders.of(this).get(IdiomViewModel::class.java)
     }
 
     private fun initBinding() {
@@ -33,8 +36,10 @@ class IdiomActivity : AppCompatActivity() {
         binding.lifecycleOwner = this
     }
 
-    private fun initViewModel() {
-        viewModel = ViewModelProviders.of(this).get(IdiomViewModel::class.java)
+    private fun initRv() {
+        adapter = IdiomResultAdapter(listOf(), viewModel)
+        binding.rvResult.layoutManager = LinearLayoutManager(this)
+        binding.rvResult.adapter = adapter
     }
 
     private fun initSearchView() {
@@ -54,10 +59,7 @@ class IdiomActivity : AppCompatActivity() {
     private fun listenerField() {
         viewModel.errorMessage.observe(this, Observer { toast(it) })
         viewModel.searchResult.observe(this, Observer(adapter::setData))
+        viewModel.searchCount.observe(this, Observer { binding.searchView.setQuery(it, true) })
     }
 
-    private fun initRv() {
-        binding.rvResult.layoutManager = LinearLayoutManager(this)
-        binding.rvResult.adapter = adapter
-    }
 }

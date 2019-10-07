@@ -17,6 +17,7 @@ class IdiomViewModel : ViewModel() {
 
     val errorMessage: MutableLiveData<String> = MutableLiveData()
     val searchResult: MutableLiveData<List<IdiomResult>> = MutableLiveData()
+    val searchCount: MutableLiveData<String> = MutableLiveData()
 
     fun search(text: String?) {
         if (verifyInput(text)) {
@@ -28,7 +29,10 @@ class IdiomViewModel : ViewModel() {
     }
 
     private fun verifyInput(text: String?): Boolean {
-        if (text.isNullOrEmpty()) return false
+        if (text.isNullOrEmpty()) {
+            searchResult.value = listOf()
+            return false
+        }
 
         return if (regexIdiom.matches(text)
             || regexPinyin.matches(text)

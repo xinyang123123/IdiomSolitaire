@@ -13,14 +13,54 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@color/background"
+        android:layout_marginBottom="@dimen/default_margin"
+        android:padding="@dimen/default_padding">
 
         <TextView
+            android:id="@+id/tv_idiom"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@{data.idiom}"
+            android:textColor="@color/idiom_font_color"
+            android:textSize="@dimen/idiom_font_size"
+            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_pinyin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{'(' + data.pinyin + ')'}"
+            android:textColor="@color/idiom_pinyin_font_color"
+            android:textSize="@dimen/idiom_pinyin_font_size"
+            app:layout_constraintStart_toEndOf="@id/tv_idiom"
+            app:layout_constraintTop_toTopOf="@id/tv_idiom" />
+
+        <TextView
+            android:id="@+id/tv_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/idiom_count_font_size"
+            android:text="@{String.valueOf(data.count)}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_desc"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:text="@{data.description}"
+            android:textSize="@dimen/idiom_description_font_size"
+            android:textColor="@color/idiom_description_font_color"
+            app:layout_constrainedWidth="false"
+            app:layout_constraintEnd_toStartOf="@id/tv_count"
+            app:layout_constraintStart_toStartOf="@id/tv_idiom"
+            app:layout_constraintTop_toBottomOf="@id/tv_idiom" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

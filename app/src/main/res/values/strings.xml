@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">IdiomSolitaire</string>
+    <string name="app_name">成语接龙</string>
+    <string name="search_hint">请输入成语，单个汉字或拼音</string>
 </resources>

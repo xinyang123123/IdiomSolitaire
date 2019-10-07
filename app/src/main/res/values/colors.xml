@@ -3,4 +3,8 @@
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
+    <color name="idiom_description_font_color">#333</color>
+    <color name="idiom_pinyin_font_color">#666</color>
+    <color name="idiom_font_color">#222</color>
+    <color name="background">#d8d8d8</color>
 </resources>

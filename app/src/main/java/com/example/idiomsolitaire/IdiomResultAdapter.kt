@@ -7,7 +7,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.idiomsolitaire.databinding.ItemIdiomSearchResultBinding
 import com.example.idiomsolitaire.model.local.IdiomResult
 
-class IdiomResultAdapter(private var data: List<IdiomResult>) :
+class IdiomResultAdapter(
+    private var data: List<IdiomResult>,
+    private val idiomViewModel: IdiomViewModel
+) :
     RecyclerView.Adapter<IdiomResultAdapter.IdiomViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): IdiomViewHolder =
@@ -24,8 +27,12 @@ class IdiomResultAdapter(private var data: List<IdiomResult>) :
     override fun getItemCount(): Int = data.size
 
 
-    override fun onBindViewHolder(holder: IdiomResultAdapter.IdiomViewHolder, position: Int) {
-        holder.bind(data[position])
+    override fun onBindViewHolder(holder: IdiomViewHolder, position: Int) {
+        var item = data[position]
+        holder.bind(item)
+        holder.binding.root.setOnClickListener {
+            idiomViewModel.searchCount.value = item.lastPinyin
+        }
     }
 
     fun setData(newData: List<IdiomResult>) {
@@ -33,7 +40,7 @@ class IdiomResultAdapter(private var data: List<IdiomResult>) :
         notifyDataSetChanged()
     }
 
-    class IdiomViewHolder(private val binding: ItemIdiomSearchResultBinding) :
+    class IdiomViewHolder(val binding: ItemIdiomSearchResultBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(idiomResult: IdiomResult) {
